@@ -12,6 +12,7 @@
         <package name="cn.tiny77.bean"></package>
     </typeAliases>
     <plugins>
+        <plugin interceptor="cn.tiny77.plugins.PrintSql"></plugin>
     </plugins>
     <environments default="development">
         <environment id="development">
