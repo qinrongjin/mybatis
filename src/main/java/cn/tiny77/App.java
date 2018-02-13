@@ -6,6 +6,8 @@ import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -17,11 +19,8 @@ import java.io.InputStreamReader;
  */
 public class App {
     public static void main(String[] args) throws  Throwable{
-        InputStream inputStream = Resources.getResourceAsStream("config.xml");
-        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
-        SqlSession session = sqlSessionFactory.openSession();
-        BlogMapper mapper = session.getMapper(BlogMapper.class);
-        Blog blog = mapper.selectBlog(1);
-        System.out.println(blog);
+        ApplicationContext ctx = new ClassPathXmlApplicationContext("classpath:spring-config.xml");
+        BlogMapper mapper = (BlogMapper) ctx.getBean("blogMapper");
+        System.out.println(mapper.selectBlog(1));
     }
 }
